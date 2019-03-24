@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>reveal.js</title>
+        <!-- reveal基本的css  -->
+        <!-- <link rel="stylesheet" href="css/reveal.css"> -->
+        <!-- 引入黑色主题 -->
+        <!-- <link rel="stylesheet" href="css/theme/black.css"> -->
+        <!-- 用于显示代码高亮 -->
+        <!-- <link rel="stylesheet" href="lib/css/zenburn.css"> -->
+        <!-- reveal基本的js，里面集成了一些转场动画 -->
+        <!-- <script src="js/reveal.js"></script> -->
+    </head>
+    <body>
+        <button class="up">上一页</button>
+        <button class="down">下一页</button>
+    
+        
+        <script>
+            
+            var ws = new WebSocket("ws://localhost:8181");
+            ws.onopen = function (e) {
+                console.log('Connection to server opened');
+            }
+            var OP_UP = 0;
+            var OP_DOWN = 1;
+            var OP_LEFT = 2;
+            var OP_RIGHT = 3;  
+            function sendMessage(e) {
+                ws.send(e);
+            }
+            let up = document.querySelector('.up'),
+                down = document.querySelector('.down');
+
+            up.addEventListener('click', function () {
+                sendMessage(OP_LEFT);
+            }, false)
+            down.addEventListener('click', function () {
+                sendMessage(OP_RIGHT);
+            }, false)
+        </script>
+
+    </body>
+</html>
